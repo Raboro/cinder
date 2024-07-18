@@ -9,9 +9,13 @@
       "recommended": true
     }
   },
+  "formatter": {
+    "indentStyle": "space"
+  },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single"
+      "quoteStyle": "single",
+      "indentStyle": "space"
     }
   },
   "files": {
