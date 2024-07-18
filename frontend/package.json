@@ -7,7 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "e2e": "bunx playwright test",
+    "e2e:ui": "bunx playwright test --ui",
+    "e2e:headed": "bunx playwright test --headed"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +30,7 @@
     "@angular-devkit/build-angular": "^17.3.8",
     "@angular/cli": "^17.3.8",
     "@angular/compiler-cli": "^17.3.0",
+    "@playwright/test": "^1.45.2",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",
     "jest-preset-angular": "^14.1.1",
