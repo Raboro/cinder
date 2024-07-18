@@ -10,7 +10,9 @@
     "test:coverage": "jest --coverage",
     "e2e": "bunx playwright test",
     "e2e:ui": "bunx playwright test --ui",
-    "e2e:headed": "bunx playwright test --headed"
+    "e2e:headed": "bunx playwright test --headed",
+    "biome:ci": "bunx biome ci",
+    "biome:write": "bunx biome check --write"
   },
   "private": true,
   "dependencies": {
