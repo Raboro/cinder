@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+
+  # Need to update for bun -> https://github.com/dependabot/dependabot-core/issues/6528#issuecomment-2013695799 
+  #- package-ecosystem: "npm"
+  #  directory: "/frontend"
+  #  schedule:
+  #    interval: "weekly"
