@@ -41,3 +41,9 @@ jobs:
           branch: biome
           delete-branch: true
           title: "Biome changes"
+
+      - name: Test with Jest
+        run: bun run test
+
+      - name: Build
+        run: bun build
