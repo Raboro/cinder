@@ -111,6 +111,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
         with:
+          projectBaseDir: ./frontend
           args: >
             -Dsonar.organization=raboro
             -Dsonar.projectKey=raboro_cinder_frontend
