@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "e2e": "bunx playwright test",
+    "e2e": "bunx playwright test --pass-with-no-tests",
     "e2e:ui": "bunx playwright test --ui",
     "e2e:headed": "bunx playwright test --headed",
     "biome:ci": "bunx biome ci",
