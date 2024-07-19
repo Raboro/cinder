@@ -1,0 +1,28 @@
+name: Frontend
+
+on: push
+
+jobs:
+  ci:
+    name: "CI"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Format, Lint and Organize Imports
+        run: bun run biome:write
+
+      - name: Check if all issues are fixed
+        run: bun run biome:ci
