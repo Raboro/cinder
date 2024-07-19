@@ -82,3 +82,37 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+  sonar:
+    name: "Sonar"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    needs: ci
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Generate Test Coverage Report
+        run: bun run test:coverage
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONTEND }}
+        with:
+          projectBaseDir: ./frontend
+          args: >
+            -Dsonar.organization=raboro
+            -Dsonar.projectKey=raboro_cinder_frontend
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
