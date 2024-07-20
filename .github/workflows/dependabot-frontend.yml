@@ -27,10 +27,8 @@ jobs:
 
       - name: Update lock file and push changes
         run: |
-          rm package-lock.json
           bun install 
           git add bun.lockb
-          git rm package-lock.json
           git config --global user.name 'dependabot[bot]'
           git config --global user.email 'dependabot[bot]@users.noreply.github.com'
           git commit --amend --no-edit 
