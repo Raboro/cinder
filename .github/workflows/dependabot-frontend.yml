@@ -1,0 +1,37 @@
+name: Dependabot update from npm to bun
+
+on:
+  pull_request:
+    paths:
+      - "frontend/package.json"
+
+jobs:
+  update-bun-lockb:
+    name: "Update bun.lockb"
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Update lock file and push changes
+        run: |
+          rm package-lock.json
+          bun install 
+          git add bun.lockb
+          git rm package-lock.json
+          git config --global user.name 'dependabot[bot]'
+          git config --global user.email 'dependabot[bot]@users.noreply.github.com'
+          git commit --amend --no-edit 
+          git push --force
