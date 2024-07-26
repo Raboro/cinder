@@ -22,7 +22,7 @@ public class Settings {
     private int maxCost;
     private int minCost;
 
-    @OneToOne
+    @Enumerated(EnumType.ORDINAL)
     private Currency currency;
 
     public Settings(int maxCost, int minCost, Currency currency) {

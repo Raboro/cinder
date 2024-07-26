@@ -1,32 +1,24 @@
 package io.github.raboro.cinder.entities;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+public enum Currency {
 
-import java.util.UUID;
+    EUR("Euro", '€'),
+    USD("USD", '$'),
+    ;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class Currency {
+    private final String name;
+    private final char symbol;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-    private String name;
-    private char symbol;
-
-    @OneToOne
-    private Settings settings;
-
-    public Currency(String name, char symbol, Settings settings) {
+    Currency(String name, char symbol) {
         this.name = name;
         this.symbol = symbol;
-        this.settings = settings;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public char getSymbol() {
+        return symbol;
     }
 }
