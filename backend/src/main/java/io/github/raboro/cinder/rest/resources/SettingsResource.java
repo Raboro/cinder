@@ -1,6 +1,5 @@
 package io.github.raboro.cinder.rest.resources;
 
-import io.github.raboro.cinder.entities.Settings;
 import io.github.raboro.cinder.rest.dto.SettingsDTO;
 import io.github.raboro.cinder.rest.mapper.SettingsMapper;
 import io.github.raboro.cinder.services.SettingsService;

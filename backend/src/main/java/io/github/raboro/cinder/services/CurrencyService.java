@@ -1,21 +1,25 @@
 package io.github.raboro.cinder.services;
 
-import io.github.raboro.cinder.dao.CurrencyRepository;
 import io.github.raboro.cinder.entities.Currency;
+import io.github.raboro.cinder.rest.dto.CurrencyDTO;
+import io.github.raboro.cinder.rest.mapper.CurrencyMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class CurrencyService {
 
-    private final CurrencyRepository currencyRepository;
+    private final CurrencyMapper mapper;
 
-    public CurrencyService(CurrencyRepository currencyRepository) {
-        this.currencyRepository = currencyRepository;
+    public CurrencyService(CurrencyMapper mapper) {
+        this.mapper = mapper;
     }
 
-    public List<Currency> getAllCurrencies() {
-        return currencyRepository.findAll();
+    public List<CurrencyDTO> getAllCurrencies() {
+        return Arrays.stream(Currency.values())
+                .map(mapper::toDTO)
+                .toList();
     }
 }

@@ -2,7 +2,6 @@ package io.github.raboro.cinder.rest.resources;
 
 
 import io.github.raboro.cinder.rest.dto.CurrencyDTO;
-import io.github.raboro.cinder.rest.mapper.CurrencyMapper;
 import io.github.raboro.cinder.services.CurrencyService;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -16,17 +15,15 @@ import java.util.List;
 public class CurrencyResource {
 
     private final CurrencyService service;
-    private final CurrencyMapper mapper;
 
     @Autowired
-    public CurrencyResource(CurrencyService service, CurrencyMapper mapper) {
+    public CurrencyResource(CurrencyService service) {
         this.service = service;
-        this.mapper = mapper;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CurrencyDTO> getCurrencies() {
-        return service.getAllCurrencies().stream().map(mapper::toDTO).toList();
+        return service.getAllCurrencies();
     }
 }
