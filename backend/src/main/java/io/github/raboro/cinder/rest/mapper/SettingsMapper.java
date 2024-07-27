@@ -9,16 +9,16 @@ public class SettingsMapper {
 
     public SettingsDTO toDTO(Settings settings) {
         return new SettingsDTO(
-                settings.getMinCost(),
                 settings.getMaxCost(),
+                settings.getMinCost(),
                 new CurrencyMapper().toDTO(settings.getCurrency())
         );
     }
 
     public Settings toEntity(SettingsDTO dto) {
         return new Settings(
-                dto.minCost(),
                 dto.maxCost(),
+                dto.minCost(),
                 new CurrencyMapper().toEntity(dto.currency())
         );
     }
