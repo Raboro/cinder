@@ -1,8 +1,10 @@
 package io.github.raboro.cinder.services;
 
+import io.github.raboro.cinder.dao.SettingsRepository;
 import io.github.raboro.cinder.entities.Settings;
 import io.github.raboro.cinder.rest.dto.CurrencyDTO;
 import io.github.raboro.cinder.rest.dto.SettingsDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +18,14 @@ class SettingsServiceTest {
 
     @Autowired
     SettingsService service;
+
+    @Autowired
+    SettingsRepository repository;
+
+    @BeforeEach
+    void setup() {
+        repository.deleteAll();
+    }
 
     @Test
     void getSettingsWithNoInDBShouldBeEmptyOptional() {
