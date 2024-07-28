@@ -38,13 +38,18 @@ public class Conference {
     @ManyToOne
     private Duration duration;
 
+    @ManyToOne
+    private Location location;
+
     private String name;
     private float cost;
     private URL website;
 
-    public Conference(List<Category> categories, Duration duration, String name, float cost, URL website) {
+    public Conference(List<Category> categories, Duration duration, Location location, String name, float cost,
+                      URL website) {
         this.categories = categories;
         this.duration = duration;
+        this.location = location;
         this.name = name;
         this.cost = cost;
         this.website = website;
