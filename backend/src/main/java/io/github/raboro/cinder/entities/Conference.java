@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,12 +35,16 @@ public class Conference {
     @Enumerated(EnumType.STRING)
     private List<Category> categories;
 
+    @ManyToOne
+    private Duration duration;
+
     private String name;
     private float cost;
     private URL website;
 
-    public Conference(List<Category> categories, String name, float cost, URL website) {
+    public Conference(List<Category> categories, Duration duration, String name, float cost, URL website) {
         this.categories = categories;
+        this.duration = duration;
         this.name = name;
         this.cost = cost;
         this.website = website;
