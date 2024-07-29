@@ -1,5 +1,6 @@
 package io.github.raboro.cinder.rest;
 
+import io.github.raboro.cinder.rest.resources.CategoryResource;
 import io.github.raboro.cinder.rest.resources.CurrencyResource;
 import io.github.raboro.cinder.rest.resources.SettingsResource;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -11,5 +12,6 @@ public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         register(CurrencyResource.class);
         register(SettingsResource.class);
+        register(CategoryResource.class);
     }
 }
