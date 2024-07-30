@@ -5,12 +5,14 @@ import io.github.raboro.cinder.rest.dto.CategoryDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CategoryMapper {
+public class CategoryMapper implements EntityMapper<Category, CategoryDTO> {
 
+    @Override
     public CategoryDTO toDTO(Category category) {
         return new CategoryDTO(category.getName());
     }
 
+    @Override
     public Category toEntity(CategoryDTO dto) {
         return new Category(dto.name());
     }

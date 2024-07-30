@@ -8,12 +8,14 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 @Component
-public class CurrencyMapper {
+public class CurrencyMapper implements EntityMapper<Currency, CurrencyDTO>{
 
+    @Override
     public CurrencyDTO toDTO(Currency currency) {
         return new CurrencyDTO(currency.getName(), currency.getSymbol());
     }
 
+    @Override
     public Currency toEntity(CurrencyDTO dto) {
         return Arrays.stream(Currency.values())
                 .filter(sameSymbol(dto))

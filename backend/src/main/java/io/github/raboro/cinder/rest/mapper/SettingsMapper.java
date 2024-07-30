@@ -5,8 +5,9 @@ import io.github.raboro.cinder.rest.dto.SettingsDTO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SettingsMapper {
+public class SettingsMapper implements EntityMapper<Settings, SettingsDTO> {
 
+    @Override
     public SettingsDTO toDTO(Settings settings) {
         return new SettingsDTO(
                 settings.getMaxCost(),
@@ -15,6 +16,7 @@ public class SettingsMapper {
         );
     }
 
+    @Override
     public Settings toEntity(SettingsDTO dto) {
         return new Settings(
                 dto.maxCost(),
