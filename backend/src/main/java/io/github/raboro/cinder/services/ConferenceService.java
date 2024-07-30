@@ -47,4 +47,8 @@ public class ConferenceService {
         );
         return conferencesAsPage.get().map(mapper::toDTO).toList();
     }
+
+    public ConferenceDTO addConference(ConferenceDTO dto) {
+        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
+    }
 }

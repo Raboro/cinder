@@ -6,6 +6,7 @@ import io.github.raboro.cinder.rest.dto.ConferenceDTO;
 import io.github.raboro.cinder.services.ConferenceService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
@@ -49,5 +50,12 @@ public class ConferenceResource {
                 matchingCriteria.maxCost(),
                 matchingCriteria.startTime()
         );
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ConferenceDTO addConference(@RequestBody ConferenceDTO dto) {
+        return service.addConference(dto);
     }
 }
