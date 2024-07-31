@@ -1,6 +1,9 @@
 package io.github.raboro.cinder.services;
 
+import io.github.raboro.cinder.dao.CategoryRepository;
 import io.github.raboro.cinder.dao.ConferenceRepository;
+import io.github.raboro.cinder.dao.DurationRepository;
+import io.github.raboro.cinder.dao.LocationRepository;
 import io.github.raboro.cinder.entities.Conference;
 import io.github.raboro.cinder.entities.Country;
 import io.github.raboro.cinder.rest.dto.CategoryDTO;
@@ -21,12 +24,24 @@ public class ConferenceService {
     private final ConferenceRepository repository;
     private final ConferenceMapper mapper;
     private final CategoryMapper categoryMapper;
+    private final DurationRepository durationRepository;
+    private final LocationRepository locationRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public ConferenceService(ConferenceRepository repository, ConferenceMapper mapper, CategoryMapper categoryMapper) {
+    public ConferenceService(
+            ConferenceRepository repository,
+            ConferenceMapper mapper,
+            CategoryMapper categoryMapper,
+            DurationRepository durationRepository,
+            LocationRepository locationRepository,
+            CategoryRepository categoryRepository) {
         this.repository = repository;
         this.categoryMapper = categoryMapper;
         this.mapper = mapper;
+        this.durationRepository = durationRepository;
+        this.locationRepository = locationRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<ConferenceDTO> getConferencesMatchingCriteriaByPage(int page,
@@ -49,6 +64,10 @@ public class ConferenceService {
     }
 
     public ConferenceDTO addConference(ConferenceDTO dto) {
-        return mapper.toDTO(repository.save(mapper.toEntity(dto)));
+        Conference entity = mapper.toEntity(dto);
+        categoryRepository.saveAll(entity.getCategories());
+        durationRepository.save(entity.getDuration());
+        locationRepository.save(entity.getLocation());
+        return mapper.toDTO(repository.save(entity));
     }
 }
