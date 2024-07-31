@@ -3,7 +3,6 @@ package io.github.raboro.cinder.entities;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,8 +25,6 @@ public class Duration {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @ElementCollection
-    private List<Day> days;
 
     @Embedded
     @AttributeOverrides({
@@ -46,8 +42,7 @@ public class Duration {
     })
     private Day endDay;
 
-    public Duration(List<Day> days, Day startDay, Day endDay) {
-        this.days = days;
+    public Duration(Day startDay, Day endDay) {
         this.startDay = startDay;
         this.endDay = endDay;
     }

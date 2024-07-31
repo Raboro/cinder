@@ -67,7 +67,7 @@ class ConferenceRepositoryTest {
                 (int) Calendar.getInstance().getTimeInMillis(),
                 (int) Calendar.getInstance().getTimeInMillis() + 100
         );
-        Duration duration = new Duration(List.of(day), day, day);
+        Duration duration = new Duration(day, day);
         durationRepository.save(duration);
         Location location = new Location(Country.GER, "FFF", 10);
         locationRepository.save(location);
