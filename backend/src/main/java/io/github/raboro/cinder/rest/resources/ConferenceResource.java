@@ -7,7 +7,9 @@ import io.github.raboro.cinder.services.ConferenceService;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.UUID;
 
 @Path("conference")
 public class ConferenceResource {
@@ -57,5 +60,13 @@ public class ConferenceResource {
     @Produces(MediaType.APPLICATION_JSON)
     public ConferenceDTO addConference(@RequestBody ConferenceDTO dto) {
         return service.addConference(dto);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ConferenceDTO putConference(@PathParam("id") UUID id, @RequestBody ConferenceDTO dto) {
+        return service.putConference(id, dto);
     }
 }
