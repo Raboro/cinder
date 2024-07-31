@@ -13,10 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,12 +58,12 @@ class ConferenceRepositoryTest {
     }
 
     @Test
-    void savedConferenceWithMatchingConditionsShouldBeManpage() throws URISyntaxException, MalformedURLException {
+    void savedConferenceWithMatchingConditionsShouldBeManpage() {
         Category ai = new Category("AI");
         categoryRepository.save(ai);
 
         Day day = new Day(
-                new Date(Calendar.getInstance().getTimeInMillis()),
+                "17.12.2024",
                 (int) Calendar.getInstance().getTimeInMillis(),
                 (int) Calendar.getInstance().getTimeInMillis() + 100
         );
@@ -81,7 +77,7 @@ class ConferenceRepositoryTest {
                 location,
                 "DevConf",
                 1200F,
-                new URI("https://google.com").toURL()
+                "https://google.com"
         );
         repository.save(conference1);
 
