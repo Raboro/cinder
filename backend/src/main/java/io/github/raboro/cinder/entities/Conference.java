@@ -40,10 +40,10 @@ public class Conference {
 
     private String name;
     private float cost;
-    private URL website;
+    private String website;
 
     public Conference(List<Category> categories, Duration duration, Location location, String name, float cost,
-                      URL website) {
+                      String website) {
         this.categories = categories;
         this.duration = duration;
         this.location = location;
