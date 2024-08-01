@@ -13,7 +13,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarkedConference extends Conference {
+public class MatchedConference extends Conference {
     private boolean accepted;
     private boolean past;
 }
