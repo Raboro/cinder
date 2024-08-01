@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -76,7 +77,11 @@ public class ConferenceService {
     }
 
     public ConferenceDTO putConference(UUID id, ConferenceDTO dto) {
-        Conference conference = repository.getReferenceById(id);
+        Optional<Conference> conferenceOptional = repository.findById(id);
+        if (conferenceOptional.isEmpty()) {
+            return mapper.toDTO(repository.save(mapper.toEntity(dto)));
+        }
+        Conference conference = conferenceOptional.get();
         Location location = conference.getLocation();
         location.setCountry(dto.location().country());
         location.setStreet(dto.location().street());
