@@ -1,5 +1,6 @@
 package io.github.raboro.cinder.rest;
 
+import io.github.raboro.cinder.rest.resources.ArchivedConferenceResource;
 import io.github.raboro.cinder.rest.resources.CategoryResource;
 import io.github.raboro.cinder.rest.resources.ConferenceResource;
 import io.github.raboro.cinder.rest.resources.CurrencyResource;
@@ -15,5 +16,6 @@ public class JerseyConfig extends ResourceConfig {
         register(SettingsResource.class);
         register(CategoryResource.class);
         register(ConferenceResource.class);
+        register(ArchivedConferenceResource.class);
     }
 }
