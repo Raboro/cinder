@@ -1,10 +1,15 @@
 package io.github.raboro.cinder.services;
 
+import io.github.raboro.cinder.dao.ArchivedConferenceRepository;
 import io.github.raboro.cinder.dao.CategoryRepository;
 import io.github.raboro.cinder.dao.DurationRepository;
 import io.github.raboro.cinder.dao.LocationRepository;
 import io.github.raboro.cinder.dao.MatchedConferenceRepository;
-import io.github.raboro.cinder.entities.*;
+import io.github.raboro.cinder.entities.ArchivedConference;
+import io.github.raboro.cinder.entities.Category;
+import io.github.raboro.cinder.entities.Duration;
+import io.github.raboro.cinder.entities.Location;
+import io.github.raboro.cinder.entities.MatchedConference;
 import io.github.raboro.cinder.rest.dto.MatchedConferenceDTO;
 import io.github.raboro.cinder.rest.mapper.CategoryMapper;
 import io.github.raboro.cinder.rest.mapper.DayMapper;
@@ -26,6 +31,7 @@ public class MatchedConferenceService {
     private final DurationRepository durationRepository;
     private final LocationRepository locationRepository;
     private final CategoryRepository categoryRepository;
+    private final ArchivedConferenceRepository archivedConferenceRepository;
 
     @Autowired
     public MatchedConferenceService(MatchedConferenceRepository repository,
@@ -34,7 +40,8 @@ public class MatchedConferenceService {
                                     DayMapper dayMapper,
                                     DurationRepository durationRepository,
                                     LocationRepository locationRepository,
-                                    CategoryRepository categoryRepository) {
+                                    CategoryRepository categoryRepository,
+                                    ArchivedConferenceRepository archivedConferenceRepository) {
         this.repository = repository;
         this.mapper = mapper;
         this.categoryMapper = categoryMapper;
@@ -42,6 +49,7 @@ public class MatchedConferenceService {
         this.durationRepository = durationRepository;
         this.locationRepository = locationRepository;
         this.categoryRepository = categoryRepository;
+        this.archivedConferenceRepository = archivedConferenceRepository;
     }
 
     public MatchedConferenceDTO addMatchedConference(MatchedConferenceDTO dto) {
@@ -81,6 +89,27 @@ public class MatchedConferenceService {
         conference.setCost(dto.cost());
         conference.setAccepted(dto.accepted());
         conference.setPast(dto.past());
+
+        if (needsToBeArchived(conference)) {
+            return handleArchived(id, dto, conference);
+        }
         return mapper.toDTO(repository.save(conference));
+    }
+
+    private boolean needsToBeArchived(MatchedConference conference) {
+        return conference.isAccepted() && conference.isPast();
+    }
+
+    private MatchedConferenceDTO handleArchived(UUID id, MatchedConferenceDTO dto, MatchedConference conference) {
+        archivedConferenceRepository.save(new ArchivedConference(
+                conference.getCategories(),
+                conference.getDuration(),
+                conference.getLocation(),
+                conference.getName(),
+                conference.getCost(),
+                conference.getWebsite()
+        ));
+        deleteMatchedConference(id);
+        return dto;
     }
 }
