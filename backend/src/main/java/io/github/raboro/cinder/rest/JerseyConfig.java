@@ -4,6 +4,7 @@ import io.github.raboro.cinder.rest.resources.ArchivedConferenceResource;
 import io.github.raboro.cinder.rest.resources.CategoryResource;
 import io.github.raboro.cinder.rest.resources.ConferenceResource;
 import io.github.raboro.cinder.rest.resources.CurrencyResource;
+import io.github.raboro.cinder.rest.resources.MatchedConferenceResource;
 import io.github.raboro.cinder.rest.resources.SettingsResource;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.stereotype.Component;
@@ -17,5 +18,6 @@ public class JerseyConfig extends ResourceConfig {
         register(CategoryResource.class);
         register(ConferenceResource.class);
         register(ArchivedConferenceResource.class);
+        register(MatchedConferenceResource.class);
     }
 }
