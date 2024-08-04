@@ -15,6 +15,7 @@ import io.github.raboro.cinder.rest.mapper.CategoryMapper;
 import io.github.raboro.cinder.rest.mapper.DayMapper;
 import io.github.raboro.cinder.rest.mapper.MatchedConferenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.UUID;
 @Service
 public class MatchedConferenceService {
 
+    private static final int SIZE_DEFAULT = 3;
     private final MatchedConferenceRepository repository;
     private final MatchedConferenceMapper mapper;
     private final CategoryMapper categoryMapper;
@@ -50,6 +52,16 @@ public class MatchedConferenceService {
         this.locationRepository = locationRepository;
         this.categoryRepository = categoryRepository;
         this.archivedConferenceRepository = archivedConferenceRepository;
+    }
+
+    public List<MatchedConferenceDTO> getAllByPage(int page, int size) {
+        if (size == 0) {
+            size = SIZE_DEFAULT;
+        }
+        return repository.findAllWithPage(PageRequest.of(page, size))
+                .get()
+                .map(mapper::toDTO)
+                .toList();
     }
 
     public MatchedConferenceDTO addMatchedConference(MatchedConferenceDTO dto) {
